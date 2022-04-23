@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 
 import { Layout } from "components/layouts";
+import pokemonApi from "api/pokemonApi";
 
 const HomePage: NextPage = (props) => {
   console.log(props);
@@ -15,10 +16,11 @@ const HomePage: NextPage = (props) => {
 
 // Se ejecuta en el lado del servidor y solo se ejecuta en build time
 export const getStaticProps: GetStaticProps = async (context) => {
-  console.log("Desde getStaticProps");
+  const { data } = await pokemonApi.get("/pokemon?limit=151");
+
   return {
     props: {
-      name: "Pokemon SG",
+      pokemons: data.results,
     },
   };
 };
