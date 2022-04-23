@@ -1,14 +1,26 @@
-import type { NextPage } from "next";
-import { Button } from "@nextui-org/react";
+import type { GetStaticProps, NextPage } from "next";
 
 import { Layout } from "components/layouts";
 
-const HomePage: NextPage = () => {
+const HomePage: NextPage = (props) => {
+  console.log(props);
   return (
     <Layout title="Pokémon primera generación">
-      <Button color="gradient">Pokémon</Button>
+      <ul>
+        <li>Pokemin 1</li>
+      </ul>
     </Layout>
   );
+};
+
+// Se ejecuta en el lado del servidor y solo se ejecuta en build time
+export const getStaticProps: GetStaticProps = async (context) => {
+  console.log("Desde getStaticProps");
+  return {
+    props: {
+      name: "Pokemon SG",
+    },
+  };
 };
 
 export default HomePage;
