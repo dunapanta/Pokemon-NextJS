@@ -6,6 +6,8 @@ export interface PokemonListResponse {
 }
 
 export interface PokemonData {
+  id: number;
   name: string;
   url: string;
+  img: string;
 }
