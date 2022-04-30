@@ -13,7 +13,7 @@ interface Props {
 const SinglePokemon: NextPage<Props> = ({ pokemon }: Props) => {
   const router = useRouter();
   return (
-    <Layout title="">
+    <Layout title={`${pokemon.name}`}>
       <Grid.Container css={{ marginTop: "6px" }} gap={2}>
         <Grid xs={12} sm={4}>
           <Card hoverable css={{ padding: "30px" }}>
