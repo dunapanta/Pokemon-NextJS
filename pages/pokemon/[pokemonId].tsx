@@ -2,45 +2,40 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 
 import { Layout } from "components/layouts";
+import pokemonApi from "api/pokemonApi";
+import { SinglePokemonResponse } from "interfaces/singlePokemonInterfaces";
 
 interface Props {
-  id: string;
-  name: string;
+  pokemon: SinglePokemonResponse;
 }
 
-const SinglePokemon: NextPage<Props> = ({ id, name }: Props) => {
+const SinglePokemon: NextPage<Props> = ({ pokemon }: Props) => {
   const router = useRouter();
   return (
     <Layout title="">
-      <h1>
-        {id} - {name}
-      </h1>
+      <h1>{pokemon.name}</h1>
     </Layout>
   );
 };
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
+  const pokemonsFirstGen = [...Array(151)].map((value, i) => `${i + 1}`);
   return {
-    paths: [
-      {
-        params: {
-          pokemonId: "1",
-        },
-      },
-    ],
+    paths: pokemonsFirstGen.map((id) => ({ params: { pokemonId: id } })),
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  /* const { data: pokemons } = await pokemonApi.get<PokemonListResponse>(
-    "/pokemon?limit=151"
-  ); */
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { pokemonId } = params as { pokemonId: string };
+
+  const { data: pokemon } = await pokemonApi.get<SinglePokemonResponse>(
+    `/pokemon/${pokemonId}`
+  );
 
   return {
     props: {
-      id: 1,
-      name: "Bulbasor",
+      pokemon,
     },
   };
 };
