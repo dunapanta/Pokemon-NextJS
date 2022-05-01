@@ -10,3 +10,13 @@ export const handleLocalStorageFavorites = (id: number) => {
 
   localStorage.setItem("favorites", JSON.stringify(favoritesPokemons));
 };
+
+export const exitstInFavorites = (id: number): Boolean => {
+  if (typeof window === "undefined") return false;
+
+  const favoritesPokemons: number[] = JSON.parse(
+    localStorage.getItem("favorites") || "[]"
+  );
+
+  return favoritesPokemons.includes(id);
+};

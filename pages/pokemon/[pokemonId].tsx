@@ -5,18 +5,24 @@ import { Layout } from "components/layouts";
 import pokemonApi from "api/pokemonApi";
 import { SinglePokemonResponse } from "interfaces/singlePokemonInterfaces";
 import { Button, Card, Container, Grid, Image, Text } from "@nextui-org/react";
-import { handleLocalStorageFavorites } from "utils/localFavorites";
+import {
+  exitstInFavorites,
+  handleLocalStorageFavorites,
+} from "utils/localFavorites";
+import { useState } from "react";
 
 interface Props {
   pokemon: SinglePokemonResponse;
 }
 
 const SinglePokemon: NextPage<Props> = ({ pokemon }: Props) => {
-  const router = useRouter();
+  const [isInFavorites, setIsInFavorites] = useState(
+    exitstInFavorites(pokemon.id)
+  );
 
   const handleFavorite = () => {
-    console.log("Pokemon id", pokemon.id);
     handleLocalStorageFavorites(pokemon.id);
+    setIsInFavorites((prevSatate) => !prevSatate);
   };
 
   return (
@@ -46,8 +52,12 @@ const SinglePokemon: NextPage<Props> = ({ pokemon }: Props) => {
               <Text h1 transform="capitalize">
                 {pokemon.name}
               </Text>
-              <Button onClick={handleFavorite} color="gradient" ghost>
-                Guardar en favoritos
+              <Button
+                onClick={handleFavorite}
+                color="gradient"
+                ghost={!isInFavorites}
+              >
+                {isInFavorites ? "En Favoritos" : "Guardar en favoritos"}
               </Button>
             </Card.Header>
             <Card.Body>
