@@ -20,3 +20,7 @@ export const exitstInFavorites = (id: number): Boolean => {
 
   return favoritesPokemons.includes(id);
 };
+
+export const favoritesPokemons = (): number[] => {
+  return JSON.parse(localStorage.getItem("favorites") || "[]");
+};
