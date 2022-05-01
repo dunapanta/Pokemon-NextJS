@@ -8,3 +8,6 @@
 
 # Clase 55 getStaticPaths cominicar con getStaticProps
 - En server side despues de ejecutarse `getStaticPaths` pasan los parametros a `getStaticProps` se leen los argumentos desde el contexto
+
+# Clase 62 localStorage
+- Generar error si se quiere acceder al localStorsge fuera de un useEfect por que el servidor no tiene acceso a el y genera error 500

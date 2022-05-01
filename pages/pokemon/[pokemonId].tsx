@@ -5,6 +5,7 @@ import { Layout } from "components/layouts";
 import pokemonApi from "api/pokemonApi";
 import { SinglePokemonResponse } from "interfaces/singlePokemonInterfaces";
 import { Button, Card, Container, Grid, Image, Text } from "@nextui-org/react";
+import { handleLocalStorageFavorites } from "utils/localFavorites";
 
 interface Props {
   pokemon: SinglePokemonResponse;
@@ -12,6 +13,12 @@ interface Props {
 
 const SinglePokemon: NextPage<Props> = ({ pokemon }: Props) => {
   const router = useRouter();
+
+  const handleFavorite = () => {
+    console.log("Pokemon id", pokemon.id);
+    handleLocalStorageFavorites(pokemon.id);
+  };
+
   return (
     <Layout title={`${pokemon.name}`}>
       <Grid.Container css={{ marginTop: "6px" }} gap={2}>
@@ -39,7 +46,7 @@ const SinglePokemon: NextPage<Props> = ({ pokemon }: Props) => {
               <Text h1 transform="capitalize">
                 {pokemon.name}
               </Text>
-              <Button color="gradient" ghost>
+              <Button onClick={handleFavorite} color="gradient" ghost>
                 Guardar en favoritos
               </Button>
             </Card.Header>
