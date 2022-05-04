@@ -8,7 +8,10 @@ import { FirstGenPokemonNamesResponse } from "interfaces/pokemonNamesInterfaces"
 import { SinglePokemonResponse } from "interfaces/singlePokemonInterfaces";
 import { GetStaticPaths, GetStaticProps } from "next";
 import React, { useState } from "react";
-import { exitstInFavorites, handleLocalStorageFavorites } from "utils/localFavorites";
+import {
+  exitstInFavorites,
+  handleLocalStorageFavorites,
+} from "utils/localFavorites";
 
 interface Props {
   pokemon: SinglePokemonResponse;
@@ -124,9 +127,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { pokemonName } = params as { pokemonName: string };
   const { data: singlePokemonName } =
     await pokemonApi.get<SinglePokemonResponse>(`/pokemon/${pokemonName}`);
+
+  const pokemon = {
+    id: singlePokemonName.id,
+    name: singlePokemonName.name,
+    sprites: singlePokemonName.sprites,
+  };
+
   return {
     props: {
-      pokemon: singlePokemonName,
+      //pokemon: singlePokemonName,
+      pokemon,
     },
   };
 };
