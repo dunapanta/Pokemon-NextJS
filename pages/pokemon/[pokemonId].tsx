@@ -1,6 +1,8 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 
+import confetti from 'canvas-confetti'
+
 import { Layout } from "components/layouts";
 import pokemonApi from "api/pokemonApi";
 import { SinglePokemonResponse } from "interfaces/singlePokemonInterfaces";
@@ -23,6 +25,21 @@ const SinglePokemon: NextPage<Props> = ({ pokemon }: Props) => {
   const handleFavorite = () => {
     handleLocalStorageFavorites(pokemon.id);
     setIsInFavorites((prevSatate) => !prevSatate);
+
+    if(!isInFavorites){
+      confetti({
+        zIndex:9999,
+        particleCount: 500,
+        spread: 200,
+        startVelocity: 20,
+        decay: 0.95,
+        ticks: 1000,
+        origin: {
+          x: 0.6,
+          y: 0.5,
+        },
+      });
+    }
   };
 
   return (
