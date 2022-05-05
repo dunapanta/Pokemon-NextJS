@@ -11,3 +11,12 @@
 
 # Clase 62 localStorage
 - Generar error si se quiere acceder al localStorsge fuera de un useEfect por que el servidor no tiene acceso a el y genera error 500
+
+# 73 Open graph Meta Tags
+- https://ahrefs.com/blog/open-graph-meta-tags/
+- Agregando meta tags
+```
+<meta property="og:title" content="How to Become an SEO Expert (8 Steps)" />
+<meta property="og:description" content="Get from SEO newbie to SEO pro in 8 simple steps." />
+<meta property="og:image" content="https://ahrefs.com/blog/wp-content/uploads/2019/12/fb-how-to-become-an-seo-expert.png" />
+```

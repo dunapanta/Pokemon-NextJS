@@ -5,6 +5,7 @@ import { Layout } from "components/layouts";
 import pokemonApi from "api/pokemonApi";
 import { PokemonData, PokemonListResponse } from "interfaces/pokemonInterfaces";
 import { PokemonCard } from "components/pokemon/PokemonCard";
+import Image from "next/image";
 
 interface Props {
   pokemons: PokemonData[];
