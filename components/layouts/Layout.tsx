@@ -27,7 +27,7 @@ export const Layout: FC<Props> = ({
         />
         <meta
           property="og:description"
-          content={`Datos curiosos sobre el pokemon${title}`}
+          content={`Datos curiosos sobre el pokemon ${title}`}
         />
         <meta property="og:image" content={`${origin}/imgs/pokemon.png`} />
       </Head>
