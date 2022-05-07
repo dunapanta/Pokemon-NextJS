@@ -119,7 +119,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: pokemonFirstGenNames.results.map((poke) => ({
       params: { pokemonName: poke.name },
     })),
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
