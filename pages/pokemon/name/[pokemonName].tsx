@@ -131,7 +131,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const { data: singlePokemonName } =
       await pokemonApi.get<SinglePokemonResponse>(`/pokemon/${pokemonName}`);
 
-    const pokemon = {
+    pokemon = {
       id: singlePokemonName.id,
       name: singlePokemonName.name,
       sprites: singlePokemonName.sprites,
