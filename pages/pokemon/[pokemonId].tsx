@@ -117,21 +117,31 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const pokemonsFirstGen = [...Array(151)].map((value, i) => `${i + 1}`);
   return {
     paths: pokemonsFirstGen.map((id) => ({ params: { pokemonId: id } })),
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { pokemonId } = params as { pokemonId: string };
 
-  const { data: singlePokemonName } =
-    await pokemonApi.get<SinglePokemonResponse>(`/pokemon/${pokemonId}`);
+  let pokemon;
+  try {
+    const { data: singlePokemonName } =
+      await pokemonApi.get<SinglePokemonResponse>(`/pokemon/${pokemonId}`);
 
-  const pokemon = {
-    id: singlePokemonName.id,
-    name: singlePokemonName.name,
-    sprites: singlePokemonName.sprites,
-  };
+    pokemon = {
+      id: singlePokemonName.id,
+      name: singlePokemonName.name,
+      sprites: singlePokemonName.sprites,
+    };
+  } catch (err) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
