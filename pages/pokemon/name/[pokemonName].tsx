@@ -125,14 +125,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { pokemonName } = params as { pokemonName: string };
-  const { data: singlePokemonName } =
-    await pokemonApi.get<SinglePokemonResponse>(`/pokemon/${pokemonName}`);
 
-  const pokemon = {
-    id: singlePokemonName.id,
-    name: singlePokemonName.name,
-    sprites: singlePokemonName.sprites,
-  };
+  let pokemon;
+  try {
+    const { data: singlePokemonName } =
+      await pokemonApi.get<SinglePokemonResponse>(`/pokemon/${pokemonName}`);
+
+    const pokemon = {
+      id: singlePokemonName.id,
+      name: singlePokemonName.name,
+      sprites: singlePokemonName.sprites,
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
